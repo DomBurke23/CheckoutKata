@@ -21,7 +21,13 @@ namespace CheckoutKata
                 {
                     return 0;
                 }
-                return 0;
+
+                foreach (var product in itemsInBag)
+                {
+                    product.TotalPrice = product.Price;
+                }
+
+                return itemsInBag.Sum(x => x.Price);
             }
             catch (Exception ex)
             {
