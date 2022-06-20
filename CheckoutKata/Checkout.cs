@@ -22,16 +22,18 @@ namespace CheckoutKata
                     return 0;
                 }
 
-                foreach (var product in itemsInBag)
+                var groupedByItem = itemsInBag.GroupBy(x => x.Name);
+
+                foreach (var item in groupedByItem)
                 {
-                    product.TotalPrice = product.Price;
+                    var groupedSum = item.Sum(i => i.Price);
                 }
 
                 return itemsInBag.Sum(x => x.Price);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }
