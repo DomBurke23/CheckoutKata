@@ -18,33 +18,61 @@ namespace CheckoutKataContractTests
             Assert.Contains("Value cannot be null. ", ex.Message);
         }
 
-        [Fact]
-        public void OneItem()
+        [Theory]
+        [InlineData("A", 50)]
+        [InlineData("B", 30)]
+        [InlineData("C", 20)]
+        [InlineData("D", 15)]
+        public void OneItem(string itemName, int itemPrice)
         {
-            var bag = new List<Item> { new Item { Name = "A", Price = 50 } };
+            var bag = new List<Item> { new Item { Name = itemName, Price = itemPrice } };
             var total = checkout.CalculateTotal(bag);
-            Assert.Equal(50, total);
+            Assert.Equal(itemPrice, total);
         }
 
-        [Fact]
-        public void DuplicateItems_DuplicateBs()
+        [Theory]
+        [InlineData("A", 50, 100)]
+        [InlineData("B", 30, 45)]
+        [InlineData("C", 20, 40)]
+        [InlineData("D", 15, 30)]
+        public void TwoItems(string itemName, int itemPrice, int expectedTotal)
         {
             var bag = new List<Item> {
-                new Item { Name = "B", Price = 30 },
-                new Item { Name = "B", Price = 30 } };
+                new Item { Name = itemName, Price = itemPrice },
+                new Item { Name = itemName, Price = itemPrice } };
             var total = checkout.CalculateTotal(bag);
-            Assert.Equal(45, total);
+            Assert.Equal(expectedTotal, total);
         }
 
-        [Fact]
-        public void DuplicateItems_TripleBs()
+        [Theory]
+        [InlineData("A", 50, 130)]
+        [InlineData("B", 30, 75)]
+        [InlineData("C", 20, 60)]
+        [InlineData("D", 15, 45)]
+        public void ThreeItems(string itemName, int itemPrice, int expectedTotal)
         {
             var bag = new List<Item> {
-                new Item { Name = "B", Price = 30 },
-                new Item { Name = "B", Price = 30 },
-                new Item { Name = "B", Price = 30 } };
+                new Item { Name = itemName, Price = itemPrice },
+                new Item { Name = itemName, Price = itemPrice },
+                new Item { Name = itemName, Price = itemPrice } };
             var total = checkout.CalculateTotal(bag);
-            Assert.Equal(75, total);
+            Assert.Equal(expectedTotal, total);
+        }
+
+        [Theory]
+        [InlineData("A", 50, 180)]
+        [InlineData("B", 30, 90)]
+        [InlineData("C", 20, 80)]
+        [InlineData("D", 15, 60)]
+        public void FourItems(string itemName, int itemPrice, int expectedTotal)
+        {
+            var bag = new List<Item> {
+                new Item { Name = itemName, Price = itemPrice },
+                new Item { Name = itemName, Price = itemPrice },
+                new Item { Name = itemName, Price = itemPrice },
+                new Item { Name = itemName, Price = itemPrice } };
+            var total = checkout.CalculateTotal(bag);
+            Assert.Equal(expectedTotal, total);
         }
     }
 }

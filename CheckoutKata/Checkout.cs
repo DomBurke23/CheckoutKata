@@ -35,7 +35,15 @@ namespace CheckoutKata
                     // calculate discount 
                     if (item.Key == "A")
                     {
-                        // Item A 20% off if you buy 3 products
+                        // Item A for every 3 products reduce £20 
+                        if (itemCount % 3 == 0)
+                        {
+                            totalCost = groupedSum - 20;
+                        }
+                        else
+                        {
+                            //TODO: Refactor
+                        }
                     }
                     else if(item.Key == "B" && itemCount >= 2)
                     {
@@ -46,6 +54,7 @@ namespace CheckoutKata
                         }
                         else
                         {
+                            // TODO: Refactor 
                             var totalToApplyDiscount = (groupedSum - 30);
                             var discountedCost = totalToApplyDiscount - (totalToApplyDiscount * 0.25);
                             totalCost = (int)(discountedCost + 30);
