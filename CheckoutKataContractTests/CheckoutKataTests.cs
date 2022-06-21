@@ -35,5 +35,16 @@ namespace CheckoutKataContractTests
             var total = checkout.CalculateTotal(bag);
             Assert.Equal(45, total);
         }
+
+        [Fact]
+        public void DuplicateItems_TripleBs()
+        {
+            var bag = new List<Item> {
+                new Item { Name = "B", Price = 30 },
+                new Item { Name = "B", Price = 30 },
+                new Item { Name = "B", Price = 30 } };
+            var total = checkout.CalculateTotal(bag);
+            Assert.Equal(75, total);
+        }
     }
 }

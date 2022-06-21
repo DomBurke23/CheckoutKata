@@ -1,8 +1,9 @@
-﻿using CheckoutKata.Models;
+﻿using CheckoutKata.Interfaces;
+using CheckoutKata.Models;
 
 namespace CheckoutKata
 {
-    public class Checkout
+    public class Checkout : ICheckout
     {
         public Checkout()
         {
@@ -41,7 +42,13 @@ namespace CheckoutKata
                         // Item B 25% off if you buy 2 products
                         if (itemCount % 2 == 0)
                         {
-                            totalCost = groupedSum - (groupedSum * 0.25);
+                            totalCost = (int)(groupedSum - (groupedSum * 0.25));
+                        }
+                        else
+                        {
+                            var totalToApplyDiscount = (groupedSum - 30);
+                            var discountedCost = totalToApplyDiscount - (totalToApplyDiscount * 0.25);
+                            totalCost = (int)(discountedCost + 30);
                         }
                     }
                 }
