@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CheckoutKata;
+using CheckoutKata.Constants;
 using CheckoutKata.Models;
 using Xunit;
 
@@ -8,7 +9,7 @@ namespace CheckoutKataContractTests
 {
     public class CheckoutKataTests
     {
-        private Checkout checkout = new Checkout();
+        private readonly Checkout checkout = new Checkout();
 
         [Fact]
         public void NoItems_ReturnsNull()
@@ -19,10 +20,10 @@ namespace CheckoutKataContractTests
         }
 
         [Theory]
-        [InlineData("A", 50)]
-        [InlineData("B", 30)]
-        [InlineData("C", 20)]
-        [InlineData("D", 15)]
+        [InlineData("A", StockPrices.ItemAPrice)]
+        [InlineData("B", StockPrices.ItemBPrice)]
+        [InlineData("C", StockPrices.ItemCPrice)]
+        [InlineData("D", StockPrices.ItemDPrice)]
         public void OneItem(string itemName, int itemPrice)
         {
             var bag = new List<Item> { new Item { Name = itemName, Price = itemPrice } };
@@ -31,10 +32,10 @@ namespace CheckoutKataContractTests
         }
 
         [Theory]
-        [InlineData("A", 50, 100)]
-        [InlineData("B", 30, 45)]
-        [InlineData("C", 20, 40)]
-        [InlineData("D", 15, 30)]
+        [InlineData("A", StockPrices.ItemAPrice, 100)]
+        [InlineData("B", StockPrices.ItemBPrice, 45)]
+        [InlineData("C", StockPrices.ItemCPrice, 40)]
+        [InlineData("D", StockPrices.ItemDPrice, 30)]
         public void TwoIdenticalItems(string itemName, int itemPrice, int expectedTotal)
         {
             var bag = new List<Item> {
@@ -45,7 +46,7 @@ namespace CheckoutKataContractTests
         }
 
         [Theory]
-        [InlineData("A", "B", 50, 30, 80)]
+        [InlineData("A", "B", StockPrices.ItemAPrice, StockPrices.ItemBPrice, 80)]
         public void TwoDifferentItems(string itemName1, string itemName2,
             int itemPriceofItem1, int itemPriceofItem2,
             int expectedTotal)
@@ -58,10 +59,10 @@ namespace CheckoutKataContractTests
         }
 
         [Theory]
-        [InlineData("A", 50, 130)]
-        [InlineData("B", 30, 75)]
-        [InlineData("C", 20, 60)]
-        [InlineData("D", 15, 45)]
+        [InlineData("A", StockPrices.ItemAPrice, 130)]
+        [InlineData("B", StockPrices.ItemBPrice, 75)]
+        [InlineData("C", StockPrices.ItemCPrice, 60)]
+        [InlineData("D", StockPrices.ItemDPrice, 45)]
         public void ThreeIdenticalItems(string itemName, int itemPrice, int expectedTotal)
         {
             var bag = new List<Item> {
@@ -73,10 +74,10 @@ namespace CheckoutKataContractTests
         }
 
         [Theory]
-        [InlineData("A", 50, 180)]
-        [InlineData("B", 30, 90)]
-        [InlineData("C", 20, 80)]
-        [InlineData("D", 15, 60)]
+        [InlineData("A", StockPrices.ItemAPrice, 180)]
+        [InlineData("B", StockPrices.ItemBPrice, 90)]
+        [InlineData("C", StockPrices.ItemCPrice, 80)]
+        [InlineData("D", StockPrices.ItemDPrice, 60)]
         public void FourIdenticalItems(string itemName, int itemPrice, int expectedTotal)
         {
             var bag = new List<Item> {
@@ -89,10 +90,10 @@ namespace CheckoutKataContractTests
         }
 
         [Theory]
-        [InlineData("A", 50, 230)]
-        [InlineData("B", 30, 120)]
-        [InlineData("C", 20, 100)]
-        [InlineData("D", 15, 75)]
+        [InlineData("A", StockPrices.ItemAPrice, 230)]
+        [InlineData("B", StockPrices.ItemBPrice, 120)]
+        [InlineData("C", StockPrices.ItemCPrice, 100)]
+        [InlineData("D", StockPrices.ItemDPrice, 75)]
         public void FiveIdenticalItems(string itemName, int itemPrice, int expectedTotal)
         {
             var bag = new List<Item> {
